@@ -1,0 +1,51 @@
+{
+  "media_id": "bcffbcca-1f93-4b4f-98ea-70d5beaaa23d",
+  "job_id": "05a6b6ee-7a51-45d3-8ba7-760137d09760",
+  "status": "completed",
+  "outputs": [
+    {
+      "profile": "original",
+      "sha256": "9207cf1ea46da212363da64d63dfbb3b9464ca98b462b90bd20da86bb6e89fd3",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 640,
+            "height": 360
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "2.000000"
+        }
+      }
+    },
+    {
+      "profile": "shorts_1080x1920",
+      "sha256": "10f9c9efb52148ff3a987e0f44b7eb0acdffb09ce713a3c4cd39a892ebca68ba",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "2.000000"
+        }
+      }
+    }
+  ],
+  "telegram": "setup_required",
+  "search_count": 6
+}

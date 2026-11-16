@@ -1,0 +1,14 @@
+backend/.venv/
+**/__pycache__/
+.pytest_cache/
+.ruff_cache/
+frontend/node_modules/
+frontend/dist/
+.env
+*.db
+*.db-*
+storage/
+*.egg-info/
+release/
+
+.DS_Store

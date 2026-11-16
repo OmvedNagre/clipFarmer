@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="10" failures="0" errors="0" time="0.353615417">
+    <testsuite name="src/App.test.jsx" timestamp="2026-11-15T17:43:07.506Z" hostname="Omveds-MacBook-Pro.local" tests="4" failures="0" errors="0" skipped="0" time="0.237609917">
+        <testcase classname="src/App.test.jsx" name="renders API metrics, empty state and demo disclosure" time="0.061950917">
+        </testcase>
+        <testcase classname="src/App.test.jsx" name="renders loading and failed searches with actionable message" time="0.066523084">
+        </testcase>
+        <testcase classname="src/App.test.jsx" name="searches selected sources and shows an empty successful response" time="0.0341275">
+        </testcase>
+        <testcase classname="src/App.test.jsx" name="shows normalized results and saves to library" time="0.073951458">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/features/Production.test.jsx" timestamp="2026-11-15T17:43:07.507Z" hostname="Omveds-MacBook-Pro.local" tests="6" failures="0" errors="0" skipped="0" time="0.1160055">
+        <testcase classname="src/features/Production.test.jsx" name="shows media import controls and durable queue empty state" time="0.029754791">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="surfaces a failed job with retry and error history" time="0.032976333">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="requires review before showing output download" time="0.016828833">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="unlocks a protected workspace without exposing the token in a URL" time="0.009560708">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="keeps the workspace locked after a rejected login and shows the error" time="0.009761833">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="shows an upload failure and lets the user retry" time="0.016026875">
+        </testcase>
+    </testsuite>
+</testsuites>
