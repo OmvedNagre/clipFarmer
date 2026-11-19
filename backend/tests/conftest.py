@@ -24,6 +24,7 @@ def client(tmp_path, monkeypatch):
         "youtube_api_key",
         "reddit_client_secret",
         "twitch_client_secret",
+        "twitch_user_token",
         "x_bearer_token",
     ]:
         monkeypatch.setattr(main.settings, name, SecretStr(""))

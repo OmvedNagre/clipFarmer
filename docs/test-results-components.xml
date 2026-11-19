@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="10" failures="0" errors="0" time="0.353615417">
-    <testsuite name="src/App.test.jsx" timestamp="2026-11-15T17:43:07.506Z" hostname="Omveds-MacBook-Pro.local" tests="4" failures="0" errors="0" skipped="0" time="0.237609917">
-        <testcase classname="src/App.test.jsx" name="renders API metrics, empty state and demo disclosure" time="0.061950917">
+<testsuites name="vitest tests" tests="16" failures="0" errors="0" time="0.555584374">
+    <testsuite name="src/App.test.jsx" timestamp="2026-11-17T05:27:44.411Z" hostname="Omveds-MacBook-Pro.local" tests="4" failures="0" errors="0" skipped="0" time="0.248212208">
+        <testcase classname="src/App.test.jsx" name="renders API metrics, empty state and demo disclosure" time="0.070692708">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="renders loading and failed searches with actionable message" time="0.066523084">
+        <testcase classname="src/App.test.jsx" name="renders loading and failed searches with actionable message" time="0.0698655">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="searches selected sources and shows an empty successful response" time="0.0341275">
+        <testcase classname="src/App.test.jsx" name="searches selected sources and shows an empty successful response" time="0.034438417">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="shows normalized results and saves to library" time="0.073951458">
+        <testcase classname="src/App.test.jsx" name="shows normalized results and saves to library" time="0.072035125">
         </testcase>
     </testsuite>
-    <testsuite name="src/features/Production.test.jsx" timestamp="2026-11-15T17:43:07.507Z" hostname="Omveds-MacBook-Pro.local" tests="6" failures="0" errors="0" skipped="0" time="0.1160055">
-        <testcase classname="src/features/Production.test.jsx" name="shows media import controls and durable queue empty state" time="0.029754791">
+    <testsuite name="src/features/ContentStudio.test.jsx" timestamp="2026-11-17T05:27:44.412Z" hostname="Omveds-MacBook-Pro.local" tests="3" failures="0" errors="0" skipped="0" time="0.084746458">
+        <testcase classname="src/features/ContentStudio.test.jsx" name="own livestream mode has no permission checkbox" time="0.055815084">
         </testcase>
-        <testcase classname="src/features/Production.test.jsx" name="surfaces a failed job with retry and error history" time="0.032976333">
+        <testcase classname="src/features/ContentStudio.test.jsx" name="normal video download requires source permission" time="0.011843333">
         </testcase>
-        <testcase classname="src/features/Production.test.jsx" name="requires review before showing output download" time="0.016828833">
+        <testcase classname="src/features/ContentStudio.test.jsx" name="daily feed shows split target and midnight schedule" time="0.0159905">
         </testcase>
-        <testcase classname="src/features/Production.test.jsx" name="unlocks a protected workspace without exposing the token in a URL" time="0.009560708">
+    </testsuite>
+    <testsuite name="src/features/LiveWatch.test.jsx" timestamp="2026-11-17T05:27:44.412Z" hostname="Omveds-MacBook-Pro.local" tests="3" failures="0" errors="0" skipped="0" time="0.102140375">
+        <testcase classname="src/features/LiveWatch.test.jsx" name="shows live requirements and requires creator authorization" time="0.067978166">
         </testcase>
-        <testcase classname="src/features/Production.test.jsx" name="keeps the workspace locked after a rejected login and shows the error" time="0.009761833">
+        <testcase classname="src/features/LiveWatch.test.jsx" name="queues a watch with creator provenance" time="0.024254833">
         </testcase>
-        <testcase classname="src/features/Production.test.jsx" name="shows an upload failure and lets the user retry" time="0.016026875">
+        <testcase classname="src/features/LiveWatch.test.jsx" name="reports a connection failure without claiming a successful watch" time="0.008365709">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/features/Production.test.jsx" timestamp="2026-11-17T05:27:44.413Z" hostname="Omveds-MacBook-Pro.local" tests="6" failures="0" errors="0" skipped="0" time="0.120485333">
+        <testcase classname="src/features/Production.test.jsx" name="shows media import controls and durable queue empty state" time="0.03167575">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="surfaces a failed job with retry and error history" time="0.040335667">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="requires review before showing output download" time="0.014059833">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="unlocks a protected workspace without exposing the token in a URL" time="0.00904475">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="keeps the workspace locked after a rejected login and shows the error" time="0.007989375">
+        </testcase>
+        <testcase classname="src/features/Production.test.jsx" name="shows an upload failure and lets the user retry" time="0.016195417">
         </testcase>
     </testsuite>
 </testsuites>

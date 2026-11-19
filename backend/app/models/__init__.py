@@ -187,3 +187,90 @@ class DeliveryRecord(Entity, Base):
     external_message_id: Mapped[str | None] = mapped_column(String(100))
     error_message: Mapped[str | None] = mapped_column(Text)
     sent_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+
+
+class WatchSession(Entity, Base):
+    __tablename__ = "watch_sessions"
+    platform: Mapped[str] = mapped_column(String(20))
+    source_url: Mapped[str] = mapped_column(Text)
+    creator_id: Mapped[str] = mapped_column(String(128))
+    creator_name: Mapped[str] = mapped_column(String(200))
+    authorization_notes: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), default="queued", index=True)
+    stop_requested: Mapped[bool] = mapped_column(Boolean, default=False)
+    options: Mapped[dict] = mapped_column(JSON)
+    heartbeat_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+    started_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+    ended_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+    diagnostic: Mapped[str] = mapped_column(Text, default="Waiting for watcher worker")
+    chat_buckets: Mapped[list] = mapped_column(JSON, default=list)
+    reconnects: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class WatchMoment(Entity, Base):
+    __tablename__ = "watch_moments"
+    watch_session_id: Mapped[str] = mapped_column(ForeignKey("watch_sessions.id"), index=True)
+    start_seconds: Mapped[float] = mapped_column(Float)
+    end_seconds: Mapped[float] = mapped_column(Float)
+    reason: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), default="pending")
+    media_asset_id: Mapped[str | None] = mapped_column(ForeignKey("media_assets.id"))
+    processing_job_id: Mapped[str | None] = mapped_column(ForeignKey("processing_jobs.id"))
+
+
+class DiscoverySchedule(Entity, Base):
+    __tablename__ = "discovery_schedules"
+    query: Mapped[str] = mapped_column(String(200))
+    platforms: Mapped[list] = mapped_column(JSON)
+    creator_ids: Mapped[list] = mapped_column(JSON)
+    interval_minutes: Mapped[int] = mapped_column(Integer)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    next_run_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utcnow, index=True)
+    last_run_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+    diagnostic: Mapped[str] = mapped_column(Text, default="Waiting for scheduler")
+
+
+class DailyFeedConfig(Base):
+    __tablename__ = "daily_feed_config"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, default=1)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    attachments: Mapped[bool] = mapped_column(Boolean, default=True)
+    approved_creators: Mapped[list] = mapped_column(JSON, default=list)
+    next_run_at: Mapped[datetime] = mapped_column(UTCDateTime())
+    heartbeat_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+
+
+class DailyFeedRun(Entity, Base):
+    __tablename__ = "daily_feed_runs"
+    day: Mapped[str] = mapped_column(String(10), unique=True)
+    summary_status: Mapped[str] = mapped_column(String(20), default="pending")
+    status: Mapped[str] = mapped_column(String(30), default="queued")
+    diagnostic: Mapped[str] = mapped_column(Text, default="")
+    completed_at: Mapped[datetime | None] = mapped_column(UTCDateTime())
+
+
+class DailyFeedItem(Entity, Base):
+    __tablename__ = "daily_feed_items"
+    __table_args__ = (UniqueConstraint("run_id", "video_id"),)
+    run_id: Mapped[str] = mapped_column(ForeignKey("daily_feed_runs.id"), index=True)
+    video_id: Mapped[str] = mapped_column(String(128), index=True)
+    snapshot: Mapped[dict] = mapped_column(JSON)
+    category: Mapped[str] = mapped_column(String(30))
+    link_status: Mapped[str] = mapped_column(String(20), default="pending")
+    attachment_status: Mapped[str] = mapped_column(String(30), default="not_authorized")
+    diagnostic: Mapped[str] = mapped_column(Text, default="")
+
+
+class LinkImport(Entity, Base):
+    __tablename__ = "link_imports"
+    source_url: Mapped[str] = mapped_column(Text)
+    mode: Mapped[str] = mapped_column(String(20))
+    authorization: Mapped[str] = mapped_column(String(30))
+    notes: Mapped[str] = mapped_column(Text, default="")
+    status: Mapped[str] = mapped_column(String(20), default="queued", index=True)
+    progress: Mapped[str] = mapped_column(Text, default="Waiting for worker")
+    cancel_requested: Mapped[bool] = mapped_column(Boolean, default=False)
+    media_asset_id: Mapped[str | None] = mapped_column(ForeignKey("media_assets.id"))
+    metadata_snapshot: Mapped[dict] = mapped_column(JSON, default=dict)
+    moments: Mapped[list] = mapped_column(JSON, default=list)
+    completed_at: Mapped[datetime | None] = mapped_column(UTCDateTime())

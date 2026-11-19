@@ -7,7 +7,7 @@ A locally runnable GTA VI research and video-production workspace. Discover meta
 Double-click **Start ClipForge.command**, or run:
 
 ```sh
-cd /Users/omvednagre/Documents/ChatGPT/Clip
+cd /Users/omvednagre/Desktop/Clip
 ./scripts/start.sh
 ```
 
@@ -23,6 +23,10 @@ Requires macOS or Linux, Python 3.11+, Node 20.19+ (Node 22 recommended), and FF
 ```
 
 Setup creates a virtual environment, installs locked dependencies, builds the UI, copies `.env.example` only if `.env` is absent, and applies database migrations. FFmpeg must include H.264/AAC encoders. Subtitle burn-in additionally requires the `subtitles` filter/libass; the UI detects support.
+
+## New content workflows
+
+**Daily GTA Gameplay** sends up to 20 ranked YouTube gameplay links at midnight IST, targeting 10 facecam and 10 faceless results, plus eligible authorized attachments. **Link Studio** imports supported public video links and finds engagement peaks in your own finished livestream recordings without an approval checkbox. See [workflow setup and limits](docs/CONTENT_WORKFLOWS.md) and [current verification](docs/CONTENT_VERIFICATION.md).
 
 ## What works
 
@@ -43,7 +47,7 @@ Setup creates a virtual environment, installs locked dependencies, builds the UI
 3. Open **Media & processing**, upload authorized footage and describe its provenance.
 4. Select the imported asset. Edit captions/copy, choose profiles and trim times, and select **Save & create outputs**.
 5. Watch the queue. Open **Outputs**, play both versions and approve or reject the source. Approval applies to all outputs belonging to that source; edits/new processing reset it to pending.
-6. Download approved MP4s, captions and publishing metadata. Telegram sends only when explicitly requested and configured.
+6. Download approved MP4s, captions and publishing metadata. Manual output delivery requires an explicit send. The enabled Daily GTA Gameplay feed sends automatically at midnight IST when configured.
 
 The installed workspace includes a clearly named synthetic acceptance-test video and its two exports; these are generated test patterns, not gameplay or user footage.
 
@@ -101,3 +105,7 @@ docker compose up --build
 ```
 
 Compose binds port 8000 to localhost, runs as an unprivileged user and stores data in a named volume. The image installs Debian FFmpeg (including libass support). The native installation is the verified delivery path.
+
+## Live Watch
+
+Live Watch adds authorized YouTube/Twitch stream capture, chat-reaction highlights, local caption support and scheduled real discovery. Run `./scripts/watch.sh` alongside the app. See [connection and server setup](docs/LIVE_WATCH.md) and [verification](docs/LIVE_WATCH_VERIFICATION.md). Platform credentials, a caption model and an always-on server are operator-provided; live connections are not configured automatically.

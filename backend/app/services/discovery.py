@@ -19,6 +19,8 @@ async def discover(db, request, mode):
     db.flush()
     errors, items = {}, []
     sources = {s.platform: s for s in db.scalars(select(PlatformSource)).all()}
+    # Release SQLite write lock before waiting on external platform APIs.
+    db.commit()
 
     async def run(platform):
         if not sources[platform].enabled:

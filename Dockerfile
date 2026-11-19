@@ -6,7 +6,8 @@ COPY frontend/ ./
 RUN npm run build
 
 FROM python:3.12-slim-bookworm
-RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg tini && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg tini libstdc++6 && rm -rf /var/lib/apt/lists/*
+COPY --from=ui /usr/local/bin/node /usr/local/bin/node
 WORKDIR /app/backend
 COPY backend/requirements.lock.txt ./
 RUN pip install --no-cache-dir -r requirements.lock.txt

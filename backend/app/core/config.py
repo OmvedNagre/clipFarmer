@@ -1,3 +1,4 @@
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
@@ -23,6 +24,18 @@ class Settings(BaseSettings):
     ffprobe_binary: str = "ffprobe"
     processing_timeout_seconds: int = Field(default=3600, ge=5, le=86400)
     worker_enabled: bool = True
+    link_max_duration_seconds: int = Field(default=21600, ge=60, le=86400)
+    link_download_timeout_seconds: int = Field(default=1800, ge=30, le=14400)
+    daily_gameplay_not_before: date = date(2026, 11, 19)
+    daily_candidate_limit: int = Field(default=60, ge=20, le=100)
+    streamlink_binary: str = "streamlink"
+    twitch_user_token: SecretStr = SecretStr("")
+    twitch_chat_login: str = ""
+    live_max_sessions: int = Field(default=2, ge=1, le=8)
+    live_storage_gb: float = Field(default=10, ge=1, le=1000)
+    live_min_free_gb: float = Field(default=2, ge=0.1, le=100)
+    whisper_binary: str = "whisper-cli"
+    whisper_model_path: str = ""
     app_access_token: SecretStr = SecretStr("")
     youtube_api_key: SecretStr = SecretStr("")
     reddit_client_id: str = ""

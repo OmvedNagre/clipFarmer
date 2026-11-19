@@ -1,3 +1,5 @@
+> Historical report. For the 17 November content workflows, see [current verification](CONTENT_VERIFICATION.md).
+
 # Pre-repository test report
 
 All four requested categories were executed. Final result: **58 passing tests, zero failures**. The initial new authentication tests found a real bug, which was fixed before this result.
@@ -43,3 +45,6 @@ Machine-readable evidence:
 No live external account credentials were used. Real Telegram delivery, paid AI requests, platform entitlements, Docker runtime and libass subtitle burn-in remain unverified as described in VERIFICATION.md. The earlier native browser file-chooser automation limitation is not reclassified as a successful browser-upload test. One upstream Starlette/HTTPX test-client deprecation warning remains; it does not fail the tests.
 
 No repository was connected, no commit was made and no code was pushed. The release ZIP was regenerated to include the authentication fix, new tests and this report.
+
+
+Live Watch update (November 16, 2026): 68 backend and 13 component tests passed. See [the current live-watch verification report](LIVE_WATCH_VERIFICATION.md) for coverage and external setup limits. Earlier counts above describe the prior release.

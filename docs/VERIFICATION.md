@@ -1,3 +1,5 @@
+> Historical report. For the 17 November content workflows, see [current verification](CONTENT_VERIFICATION.md).
+
 # Release verification — 15 November 2026
 
 See [the four-category test report](TEST_REPORT.md) for the latest pre-repository regression run and authentication fix.
@@ -46,3 +48,6 @@ The application was stopped and restarted; the acceptance job, its output files 
 ## Delivery
 
 Use `Start ClipForge.command` or `./scripts/start.sh`, then open http://127.0.0.1:8000. The release ZIP includes source, dependency locks, migrations, documentation, launcher and prebuilt UI. It excludes secrets, databases, original/output media, installed dependencies and caches. SHA256SUMS.txt records the archive digest.
+
+
+Live Watch update (November 16, 2026): 68 backend and 13 component tests passed. See [the current live-watch verification report](LIVE_WATCH_VERIFICATION.md) for coverage and external setup limits. Earlier counts above describe the prior release.

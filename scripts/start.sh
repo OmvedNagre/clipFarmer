@@ -10,6 +10,8 @@ if [ ! -f frontend/dist/index.html ]; then
   npm run build --prefix frontend
 fi
 cd backend
-.venv/bin/alembic upgrade head
+PATH="$PWD/.venv/bin:$PATH"
+export PATH
+.venv/bin/python -m alembic upgrade head
 echo 'VI ClipForge: http://127.0.0.1:8000 (Ctrl+C to stop)'
-exec .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+exec .venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000

@@ -1,12 +1,12 @@
 .PHONY: backend frontend test migrate
 backend:
-	cd backend && .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+	cd backend && .venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 frontend:
 	npm run dev --prefix frontend -- --port 5173
 migrate:
-	cd backend && .venv/bin/alembic upgrade head
+	cd backend && .venv/bin/python -m alembic upgrade head
 test:
-	cd backend && .venv/bin/pytest -q
+	cd backend && .venv/bin/python -m pytest -q
 	npm test --prefix frontend
 	npm run build --prefix frontend
 
@@ -24,6 +24,14 @@ test-unit:
 test-component:
 	npm test --prefix frontend
 test-usecase:
-	cd backend && .venv/bin/python -m pytest -q tests/test_usecases.py
+	cd backend && .venv/bin/python -m pytest -q tests/test_usecases.py tests/test_watch.py::test_real_segment_extract_import_and_render_queue
 test-functionality:
 	cd backend && .venv/bin/python -m pytest -q tests/test_foundation.py tests/test_media.py tests/test_integrations.py tests/test_delivery_ai.py
+
+.PHONY: watcher
+watcher:
+	./scripts/watch.sh
+
+.PHONY: test-live
+test-live:
+	cd backend && .venv/bin/python -m pytest -q tests/test_watch.py

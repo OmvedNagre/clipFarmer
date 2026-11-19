@@ -16,9 +16,11 @@ from sqlalchemy.orm import Session
 
 from app.adapters.live import ConnectorError
 from app.adapters.registry import PLATFORMS, get_adapter
+from app.api.content import router as content_router
 from app.api.delivery import router as delivery_router
 from app.api.media import processing_stats
 from app.api.media import router as media_router
+from app.api.watch import router as watch_router
 from app.core.config import get_settings
 from app.core.security import UploadLimitMiddleware, authorized, session_cookie
 from app.db.session import SessionLocal, get_db
@@ -39,7 +41,9 @@ from app.schemas import (
     SourcePatch,
     SourceResponse,
 )
+from app.services.daily_feed import ensure_config
 from app.services.discovery import discover
+from app.services.link_jobs import ContentWorker
 from app.services.processing import Worker, capabilities
 
 settings = get_settings()
@@ -59,11 +63,16 @@ async def lifespan(app):
             source.status = health["status"]
             source.capabilities = health["capabilities"]
         db.commit()
+        ensure_config(db)
+    content_worker = ContentWorker(SessionLocal)
+    app.state.content_worker = content_worker
     worker = Worker(SessionLocal)
     app.state.worker = worker
     if settings.worker_enabled:
         worker.start()
+        content_worker.start()
     yield
+    content_worker.close()
     worker.close()
 
 
@@ -75,6 +84,8 @@ app.add_middleware(
     allow_headers=["Content-Type", "Authorization"],
 )
 app.add_middleware(UploadLimitMiddleware)
+app.include_router(content_router, prefix=settings.api_v1_prefix)
+app.include_router(watch_router, prefix=settings.api_v1_prefix)
 app.include_router(media_router, prefix=settings.api_v1_prefix)
 app.include_router(delivery_router, prefix=settings.api_v1_prefix)
 requests_by_host = defaultdict(deque)

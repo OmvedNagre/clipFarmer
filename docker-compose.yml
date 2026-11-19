@@ -17,5 +17,21 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+  watcher:
+    build: .
+    command: ["python", "-m", "app.services.watch_worker"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: sqlite:////data/clipforge.db
+      STORAGE_ROOT: /data/storage
+    volumes:
+      - clipforge-data:/data
+    depends_on:
+      clipforge:
+        condition: service_healthy
+    restart: unless-stopped
+    stop_grace_period: 20m
 volumes:
   clipforge-data:

@@ -1,0 +1,15 @@
+# Apply after choosing a server and configuring its HTTPS reverse proxy.
+# docker compose -f docker-compose.yml -f docker-compose.server.yml up -d --build
+services:
+  clipforge:
+    environment:
+      APP_ENV: production
+      APP_ACCESS_TOKEN: ${APP_ACCESS_TOKEN:?Set a random access token of at least 32 characters}
+      PLATFORM_MODE: live
+      CORS_ORIGINS: ${CORS_ORIGINS:?Set the exact public HTTPS origin}
+  watcher:
+    environment:
+      APP_ENV: production
+      APP_ACCESS_TOKEN: ${APP_ACCESS_TOKEN:?Set a random access token of at least 32 characters}
+      PLATFORM_MODE: live
+      CORS_ORIGINS: ${CORS_ORIGINS:?Set the exact public HTTPS origin}

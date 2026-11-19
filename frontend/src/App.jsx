@@ -18,10 +18,15 @@ import {
 import { api, names } from "./api";
 import { Processing, Outputs } from "./features/Production";
 import SourceSubmission from "./features/SourceSubmission";
+import LiveWatch from "./features/LiveWatch";
+import { DailyFeed, LinkStudio } from "./features/ContentStudio";
 
 const nav = [
   ["Dashboard", LayoutDashboard],
   ["Discovery", Compass],
+  ["Daily GTA Gameplay", Search],
+  ["Link Studio", Film],
+  ["Live Watch", Radio],
   ["Library", Library],
   ["Media & processing", Film],
   ["Outputs", Check],
@@ -757,6 +762,7 @@ function Settings() {
   );
 }
 export default function App() {
+  const [sourceLink, setSourceLink] = useState("");
   const [page, setPage] = useState("Dashboard"),
     [version, setVersion] = useState(0),
     [mode, setMode] = useState(null);
@@ -813,31 +819,49 @@ export default function App() {
           </div>
           <div className="header-right">
             <Pill green={mode === "mock"}>
-              {mode === null
-                ? "CONNECTING"
-                : mode === "mock"
-                  ? "DEMO MODE"
-                  : mode === "offline"
-                    ? "API OFFLINE"
-                    : "LIVE MODE"}
+              {["Live Watch", "Daily GTA Gameplay", "Link Studio"].includes(
+                page,
+              )
+                ? "CONNECTED WORKFLOWS"
+                : mode === null
+                  ? "CONNECTING"
+                  : mode === "mock"
+                    ? "DEMO MODE"
+                    : mode === "offline"
+                      ? "API OFFLINE"
+                      : "LIVE MODE"}
             </Pill>
             <span className="avatar">CF</span>
           </div>
         </header>
         <main>
-          {mode === "mock" && (
-            <div className="demo-strip">
-              <Radio size={14} />
-              <span>
-                You're in demo mode. Discoveries and engagement are sample data;
-                no live platforms are connected.
-              </span>
-            </div>
-          )}
+          {mode === "mock" &&
+            !["Live Watch", "Daily GTA Gameplay", "Link Studio"].includes(
+              page,
+            ) && (
+              <div className="demo-strip">
+                <Radio size={14} />
+                <span>
+                  Manual discovery is in demo mode. Sample results are labeled
+                  DEMO. Live Watch and scheduled discovery use real connections.
+                </span>
+              </div>
+            )}
           {page === "Dashboard" ? (
             <Dashboard go={setPage} version={version} />
           ) : page === "Discovery" ? (
             <Discovery onSaved={() => setVersion((v) => v + 1)} />
+          ) : page === "Daily GTA Gameplay" ? (
+            <DailyFeed
+              onOpenLink={(url) => {
+                setSourceLink(url);
+                setPage("Link Studio");
+              }}
+            />
+          ) : page === "Link Studio" ? (
+            <LinkStudio initialUrl={sourceLink} />
+          ) : page === "Live Watch" ? (
+            <LiveWatch />
           ) : page === "Library" ? (
             <LibraryPage />
           ) : page === "Media & processing" ? (

@@ -1350,3 +1350,126 @@ textarea {
   height: 100%;
   object-fit: cover;
 }
+
+/* Live capture workspace */
+.live-workspace {
+  display: grid;
+  gap: 24px;
+}
+.live-panel {
+  padding: 24px;
+  border: 1px solid var(--border, #303b30);
+  border-radius: 16px;
+}
+.live-panel h2 {
+  margin-bottom: 16px;
+}
+.live-panel p {
+  color: #abb6a9;
+  margin: 10px 0;
+}
+.live-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.live-form-grid label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  color: #ccd3c8;
+}
+.live-form-grid input,
+.live-form-grid select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  background: #101611;
+  color: #eef4e9;
+  border: 1px solid #384237;
+  border-radius: 8px;
+}
+.live-check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 16px 0;
+  font-size: 14px;
+}
+.live-check input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.live-session {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  border-top: 1px solid #303b30;
+}
+.live-session button {
+  align-self: start;
+}
+.live-health {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+}
+.live-health span {
+  background: #1c281e;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+.chat-timeline {
+  display: flex;
+  height: 100px;
+  align-items: end;
+  gap: 2px;
+  padding-top: 10px;
+  border-bottom: 1px solid #54614c;
+}
+.chat-timeline > div {
+  flex: 1;
+  min-width: 1px;
+  max-width: 14px;
+}
+@media (max-width: 720px) {
+  .live-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .live-panel {
+    padding: 16px;
+  }
+}
+
+.studio-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.studio-mode button[aria-pressed="true"] {
+  background: #c5ff73;
+  color: #141c11;
+}
+.studio-preview {
+  width: 100%;
+  max-height: 420px;
+  background: #000;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+.clip-window {
+  border-top: 1px solid #303b30;
+  padding: 20px 0;
+}
+.live-session > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.live-session .button {
+  flex-shrink: 0;
+}

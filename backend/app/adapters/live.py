@@ -123,7 +123,7 @@ class YouTubeAdapter(LiveAdapter):
             await request_json(
                 "GET",
                 "https://www.googleapis.com/youtube/v3/videos",
-                params={"part": "contentDetails,statistics", "id": ids, "key": key},
+                params={"part": "contentDetails,statistics,status,snippet", "id": ids, "key": key},
             )
             if ids
             else {}
@@ -150,7 +150,12 @@ class YouTubeAdapter(LiveAdapter):
                     view_count=int(stats["viewCount"]) if "viewCount" in stats else None,
                     like_count=int(stats["likeCount"]) if "likeCount" in stats else None,
                     comment_count=int(stats["commentCount"]) if "commentCount" in stats else None,
-                    raw_metadata={"demo": False},
+                    raw_metadata={
+                        "demo": False,
+                        "license": extra.get("status", {}).get("license", "unknown"),
+                        "category_id": extra.get("snippet", {}).get("categoryId"),
+                        "live": s.get("liveBroadcastContent", "none"),
+                    },
                 )
             )
         return result
@@ -194,6 +199,7 @@ class RedditAdapter(LiveAdapter):
                 thumbnail_url=d.get("thumbnail")
                 if d.get("thumbnail", "").startswith("https://")
                 else None,
+                creator_id=d.get("author"),
                 creator_name=d.get("author", "Unknown"),
                 published_at=datetime.fromtimestamp(d["created_utc"], UTC),
                 comment_count=d.get("num_comments"),
@@ -250,8 +256,8 @@ class TwitchAdapter(LiveAdapter):
                 title=c["title"],
                 canonical_url=c["url"],
                 thumbnail_url=c.get("thumbnail_url"),
-                creator_id=c.get("creator_id"),
-                creator_name=c.get("creator_name", "Unknown"),
+                creator_id=c.get("broadcaster_id"),
+                creator_name=c.get("broadcaster_name", "Unknown"),
                 published_at=date(c.get("created_at")),
                 duration_seconds=int(c.get("duration", 0)),
                 view_count=c.get("view_count"),
